@@ -513,11 +513,11 @@ export default function Home() {
                     <span className="chip-label">LinkedIn</span>
                     <span className="chip-value">
                       <a
-                        href="https://linkedin.com/in/yourlinkedin"
+                        href="https://www.linkedin.com/in/ali-lakhani-a676b7175/"
                         target="_blank"
                         rel="noreferrer"
                       >
-                        /in/yourlinkedin
+                        /in/ali-lakhani-a676b7175/
                       </a>
                     </span>
                   </div>
