@@ -13,7 +13,7 @@ type TimelineItem = {
 const items: TimelineItem[] = [
     {
         id: "westpark",
-        title: "Biomedical Eng Intern",
+        title: "R&D Eng Intern",
         company: "West Park Healthcare Center",
         start: "Summer 2023",
         end: "",
