@@ -49,6 +49,41 @@ export default function HomePage() {
       },
     },
     {
+      year: "2025",
+      role: "Manufacturing Engineering Intern",
+      company: "Volt Carbon Technologies",
+      location: "Guelph, ON",
+      subtitle: "DFM, mechanical design, data analysis",
+      modelSrc: "/models/funnel.glb",
+      photoSrc: "/images/airseperator.png",
+      photoAlt: "Air seperator device to purify graphite for lithium ion EV batteries",
+      photoCaption: "Air seperator device to purify graphite for lithium ion EV batteries",
+      sections: {
+        hardware: {
+          bullets: [
+            "Collaborated on the design and validation of proprietary in-house lithium-ion cell batteries, performing performance and efficiency testing to assess electrochemical reliability under real-world conditions.",
+            "Modified and tested air classification chamber for graphite extraction from crushed ore; designed components in SolidWorks and Catia",
+            "Applied DFM/DFA principles on general equipment, including microscope mounts and magnetic separation tools for iron removal",
+          ],
+          tech: "SolidWorks · Catia · DFM · DFA",
+        },
+        software: {
+          bullets: [
+            "Collaborated on the design and validation of proprietary in-house lithium-ion cell batteries, performing performance and efficiency testing to assess electrochemical reliability under real-world conditions.",
+            "Modified and tested air classification chamber for graphite extraction from crushed ore; designed components in SolidWorks and Catia",
+            "Applied DFM/DFA principles on general equipment, including microscope mounts and magnetic separation tools for iron removal",
+          ],
+          tech: "SolidWorks · Catia · DFM · DFA",
+        },
+        data: {
+          bullets: [
+            "Built Python automation tool to extract, clean, and visualize lab data from TGA and XRF systems, enhancing data accessibility and reporting efficiency",
+          ],
+          tech: "Python · Data processing · Experiment tooling",
+        },
+      },
+    },
+    {
       year: "2023",
       role: "Biomedical Engineering Intern",
       company: "West Park Healthcare Centre",
@@ -124,16 +159,15 @@ export default function HomePage() {
       company: "University of Waterloo",
       location: "Waterloo, ON",
       subtitle: "Embedded systems, control, data tools",
-      photoSrc: "/images/waterloo-lab-bench.jpg",
       photoAlt: "Control systems lab setup at the University of Waterloo",
       photoCaption: "FPGA, PLC, and sensor-actuator rigs used in control and embedded labs.",
       sections: {
         hardware: {
           bullets: [
             "Designed and built control systems labs using PLCs, FPGAs, and sensor-actuator setups.",
-            "Prototyped mechanisms and fixtures in VEX and CAD for course and side projects.",
+            "Prototyped mechanisms and fixtures using CAD for course and side projects.",
           ],
-          tech: "PLC · VHDL · VEX · CAD",
+          tech: "PLC · VHDL · CAD",
         },
         software: {
           bullets: [
@@ -156,7 +190,6 @@ export default function HomePage() {
       company: "VEX Robotics",
       location: "Toronto, ON",
       subtitle: "Drive bases, intakes, robust mechanisms",
-      modelSrc: "/models/Aerostim.glb",
       photoSrc: "/images/vex-robot.jpg",
       photoAlt: "VEX competition robot on field",
       photoCaption: "Competition-ready VEX robot with optimized intake and scoring mechanism.",

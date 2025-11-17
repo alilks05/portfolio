@@ -25,7 +25,7 @@ export default function RootLayout({
             </div>
             <nav className="nav-links">
               <Link href="/">Home</Link>
-              <Link href="/projects">Projects</Link>
+              <Link href="#timeline">Projects</Link>
               <a href="#contact">Contact</a>
               {/* optional separate /contact page later */}
             </nav>
