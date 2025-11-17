@@ -1,305 +1,88 @@
-import ProjectCard from "../../components/ProjectCard";
+import TimelineModel from "../../components/TimelineModel"; // ✅ server imports client child is fine
 
 export const metadata = {
-  title: "Projects – Ali Lakhani",
+  title: "Timeline – Ali Lakhani",
 };
 
 export default function ProjectsPage() {
-  const year = new Date().getFullYear();
+
+
+  const timeline = [
+    {
+      year: "2025",
+      title: "Aerocardia – Biomedical Engineering Startup",
+      subtitle: "Venturi-based respiratory monitoring & wearable systems",
+      desc: [
+        "At Aerocardia, I’m developing a Venturi-based wearable device capable of estimating VO₂ Max, Respiratory Exchange Ratio (RER), and lung volume using low-pressure airflow sensors integrated into a compact mouthpiece.",
+        "Designed firmware in ESP-IDF (C / FreeRTOS), built a React Native companion app for BLE data visualization, and designed the Venturi and PPG modules in CAD.",
+      ],
+      modelSrc: "/models/Aerostim.glb",
+      tech: "ESP-IDF · React Native · Sensors · CAD · BLE",
+    },
+    {
+      year: "2024",
+      title: "West Park Healthcare Centre",
+      subtitle: "Biomedical Engineering Internship",
+      desc: [
+        "Developed a sip-and-puff gaming controller using Adafruit CircuitPython for patients with limited mobility.",
+        "Assisted with calibration and maintenance of medical equipment and prototyping of prosthetic components in SolidWorks.",
+      ],
+      tech: "CircuitPython · PCB · Assistive Tech",
+    },
+    {
+      year: "2023",
+      title: "LightCI",
+      subtitle: "Software Engineering Internship",
+      desc: [
+        "Built a full-stack feedback analysis system using Node.js, Express.js, and an LLM backend to analyze instructor question bias.",
+        "Implemented data visualizations, feedback dashboards, and integrated natural language analysis pipelines.",
+      ],
+      tech: "Node.js · Express.js · React · LLMs",
+    },
+  ];
 
   return (
     <main>
-      {/* About (optional on this page) */}
-      <section id="about">
-        <h2 className="section-title"><span>01</span> · About</h2>
-        <div className="section-card">
-          <p className="about-text">
-            I’m a Mechatronics Engineering student who likes working across
-            the stack: designing hardware, writing embedded firmware, and
-            building software tools to visualize and interpret data. My
-            projects range from a Venturi-based wearable breathing tube that
-            estimates VO₂ Max and RER from a single puff, to assistive gaming
-            controllers and industrial systems.
-          </p>
+      <section id="timeline">
+        <h2 className="section-title">
+          <span>01</span> · Timeline
+        </h2>
+        <div className="timeline-container">
+          {timeline.map((item, idx) => (
+            <div key={idx} className="timeline-item">
+              <div className="timeline-marker" />
+              <div className="timeline-content">
+                <h3 className="timeline-year">{item.year}</h3>
+                <h4 className="timeline-title">{item.title}</h4>
+                <h5 className="timeline-subtitle">{item.subtitle}</h5>
+
+                {/* Only Aerocardia has a model */}
+                {item.modelSrc && (
+                  <div className="timeline-model">
+                    <TimelineModel src={item.modelSrc} height={350} alt={`${item.title} model`} />
+                  </div>
+                )}
+
+                {item.desc.map((p, i) => (
+                  <p key={i} className="timeline-desc">{p}</p>
+                ))}
+                <div className="timeline-tech">{item.tech}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Projects */}
-      <section id="projects">
-        <h2 className="section-title"><span>02</span> · Projects</h2>
-        <div className="section-card">
-          <div className="projects-list">
-            {/* Venturi */}
-            <ProjectCard
-              title="Venturi-Based Wearable Breathing Tube"
-              subtitle="Estimating VO₂ Max, RER, and lung volume from a single breath."
-              image="/venturi-tube.png"
-              imageAlt="Venturi-based wearable breathing tube CAD"
-              techSummary="ESP-IDF · Sensors · Medtech"
-              sections={[
-                {
-                  key: "overview",
-                  label: "Overview",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        Developed a Venturi-based wearable tube capable of
-                        measuring respiratory performance metrics such as VO₂
-                        Max, RER, and lung volume from a single, effortless breath.
-                      </p>
-                      <p className="project-desc">
-                        Compact, low-pressure design suitable for non-athlete users
-                        while still providing actionable metrics.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "hardware",
-                  label: "Hardware",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Modified a compact Venturi channel for human breath (&lt; 3 kPa)
-                        using Ansys and experimental calibration to preserve linearity.
-                      </p>
-                      <p className="project-desc">
-                        • Multiple pressure/temperature sensors across the constriction
-                        for differential pressure and mass-flow in real time.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "software",
-                  label: "Software",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Firmware in C / FreeRTOS (ESP-IDF) with synchronized 50 Hz sampling.
-                      </p>
-                      <p className="project-desc">
-                        • React Native app visualizes live flow and derived metrics.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "data",
-                  label: "Data",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Calibration via ground-truth flow sources and curve fitting
-                        for volumetric flow and VO₂ estimates.
-                      </p>
-                      <p className="project-desc">
-                        • On-device + app filters for noise rejection and breath detection.
-                      </p>
-                    </>
-                  ),
-                },
-              ]}
-            />
-
-            {/* Sip-and-puff */}
-            <ProjectCard
-              title="Mouth-Controlled Gaming Controller"
-              subtitle="Sip-and-puff interface for quadriplegic players."
-              image="/sip-and-puff.png"
-              imageAlt="Sip-and-puff controller assembly"
-              techSummary="Assistive Device · CircuitPython"
-              sections={[
-                {
-                  key: "overview",
-                  label: "Overview",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        Accessible controller using breath to trigger inputs; validated
-                        with quadriplegic users for comfort and responsiveness.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "hardware",
-                  label: "Hardware",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Moisture-resistant pressure sensor modules via flexible tubing.
-                      </p>
-                      <p className="project-desc">
-                        • Replaceable mouthpiece; electronics isolated in housing.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "software",
-                  label: "Software",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • CircuitPython firmware detects sip/puff and maps to button events.
-                      </p>
-                      <p className="project-desc">
-                        • Tuned thresholds/debounce to minimize false triggers.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "data",
-                  label: "Data",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Logged sensor readings to adapt thresholds for different users.
-                      </p>
-                      <p className="project-desc">
-                        • Measured repeatability and error rates across sessions.
-                      </p>
-                    </>
-                  ),
-                },
-              ]}
-            />
-
-            {/* Control systems */}
-            <ProjectCard
-              title="Control Systems & Digital Logic"
-              subtitle="PLC state machine and FPGA-based synchronous logic."
-              image="/control-systems.png"
-              imageAlt="PLC and FPGA system diagram"
-              techSummary="PLC · VHDL · Intel DE10-Lite"
-              sections={[
-                {
-                  key: "overview",
-                  label: "Overview",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        Multistate electromechanical system on PLC; mirrored key logic on FPGA
-                        to compare behavior and timing.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "hardware",
-                  label: "Hardware",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Intel DE10-Lite for counters and small state machines.
-                      </p>
-                      <p className="project-desc">
-                        • Integrated sensors/actuators including a color sensor in PLC setup.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "software",
-                  label: "Software",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Ladder logic in Siemens TIA Portal for jogging/halting and transitions.
-                      </p>
-                      <p className="project-desc">
-                        • VHDL 3-bit synchronous counter + configurable FSM on FPGA.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "data",
-                  label: "Data",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Logged state transitions, timing margins, error conditions.
-                      </p>
-                      <p className="project-desc">
-                        • Compared PLC scan time vs FPGA determinism for RT tradeoffs.
-                      </p>
-                    </>
-                  ),
-                },
-              ]}
-            />
-
-            {/* TGA tool */}
-            <ProjectCard
-              title="TGA Data Extractor"
-              subtitle="Python toolchain for graphite flake characterization."
-              image="/tga-tool.png"
-              imageAlt="Example TGA data plot"
-              techSummary="Python · Data Processing"
-              sections={[
-                {
-                  key: "overview",
-                  label: "Overview",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        Processes multiple TGA text exports and produces a clean CSV summary.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "hardware",
-                  label: "Hardware",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Adapts to exported formats from existing lab instrumentation.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "software",
-                  label: "Software",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Parses mass at 25/550/800/1000°C; modular code to add metrics easily.
-                      </p>
-                    </>
-                  ),
-                },
-                {
-                  key: "data",
-                  label: "Data",
-                  content: (
-                    <>
-                      <p className="project-desc">
-                        • Computes moisture/volatiles, combustibles, graphite combustion,
-                        ash content, total loss, and carbon %.
-                      </p>
-                    </>
-                  ),
-                },
-              ]}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Contact on this page */}
+      {/* Contact */}
       <section id="contact">
-        <h2 className="section-title"><span>03</span> · Contact</h2>
+        <h2 className="section-title">
+          <span>02</span> · Contact
+        </h2>
         <div className="section-card">
           <div className="contact-grid">
             <div className="contact-main">
               <p>
-                I’d love to connect about internships, projects, or collaborations in
-                embedded systems, medtech, robotics, or data tooling.
+                I’d love to connect about internships, projects, or collaborations in embedded systems, medtech, robotics, or data tooling.
               </p>
               <p style={{ marginTop: 8 }}>
                 <strong>
@@ -341,7 +124,7 @@ export default function ProjectsPage() {
               </div>
             </div>
           </div>
-          <div className="footer">Designed &amp; coded by Ali Lakhani · © {year}</div>
+          <div className="footer">Designed &amp; coded by Ali Lakhani · © </div>
         </div>
       </section>
     </main>
