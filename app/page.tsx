@@ -69,11 +69,10 @@ export default function HomePage() {
         },
         software: {
           bullets: [
-            "Collaborated on the design and validation of proprietary in-house lithium-ion cell batteries, performing performance and efficiency testing to assess electrochemical reliability under real-world conditions.",
-            "Modified and tested air classification chamber for graphite extraction from crushed ore; designed components in SolidWorks and Catia",
-            "Applied DFM/DFA principles on general equipment, including microscope mounts and magnetic separation tools for iron removal",
-          ],
-          tech: "SolidWorks · Catia · DFM · DFA",
+            "Built Python automation tool to extract, clean, and visualize lab data from TGA and XRF systems, enhancing data accessibility and reporting efficiency",
+         ],
+         tech: "Python · Data processing · Experiment tooling",
+       
         },
         data: {
           bullets: [
