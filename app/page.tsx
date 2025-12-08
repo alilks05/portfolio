@@ -243,7 +243,7 @@ export default function HomePage() {
     </div>
 
     <p className="hero-meta">
-      Currently exploring roles in <strong>embedded systems, robotics, medtech, and data-heavy engineering tools.</strong>
+      Currently exploring roles in <strong>embedded systems, robotics, and data-heavy engineering tools.</strong>
     </p>
   </div>
 
@@ -413,7 +413,7 @@ export default function HomePage() {
             <div className="contact-main">
               <p>
                 I’d love to connect about internships, projects, or collaborations in embedded
-                systems, medtech, robotics, or data tooling.
+                systems, robotics, or data tooling.
               </p>
               <p style={{ marginTop: 8 }}>
                 <strong>
