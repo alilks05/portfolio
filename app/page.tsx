@@ -189,6 +189,7 @@ export default function HomePage() {
       company: "VEX Robotics",
       location: "Toronto, ON",
       subtitle: "Drive bases, intakes, robust mechanisms",
+      modelSrc: "/models/Full_robot_v3.glb",
       photoSrc: "/images/vex-robot.jpg",
       photoAlt: "VEX competition robot on field",
       photoCaption: "Competition-ready VEX robot with optimized intake and scoring mechanism.",
