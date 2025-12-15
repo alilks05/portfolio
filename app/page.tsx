@@ -257,6 +257,69 @@ export default function HomePage() {
   </div>
 </section>
 
+{/* Current Project */}
+<section className="current-project">
+  <div className="current-project-card">
+    <div className="current-project-header">
+      <span className="current-project-badge">In Progress</span>
+      <h2 className="current-project-title">
+        Vision-Guided Autonomous Disk Launcher
+      </h2>
+    </div>
+
+    <div className="current-project-grid">
+      {/* LEFT: Text */}
+      <div className="current-project-text">
+        <p className="current-project-subtitle">
+          An actively developed vision-guided electromechanical system focused on
+          real-time target tracking, repeatable launch performance, and robust
+          mechanical design.
+        </p>
+
+        <ul className="current-project-bullets">
+          <li>
+            Designing the full mechanical architecture including structural layout,
+            actuator selection, and drivetrain geometry for a disk-launching mechanism.
+          </li>
+          <li>
+            Performing torque, inertia, and acceleration calculations to size pan-tilt
+            actuators and define stable tracking limits without overshoot or resonance.
+          </li>
+          <li>
+            Building experimental test rigs to evaluate launch repeatability, accuracy,
+            and system failure modes across iterative prototypes.
+          </li>
+          <li>
+            Integrating vision feedback with mechanical constraints to close the loop
+            between perception, actuation, and physical limits.
+          </li>
+        </ul>
+
+        <div className="current-project-meta">
+          Mechanical Design · Control Systems · Experimental Validation
+        </div>
+      </div>
+
+      {/* RIGHT: Video */}
+      <div className="current-project-media">
+        <video
+          src="/videos/disk-launcher-demo.mp4"
+          controls
+          muted
+          playsInline
+          preload="metadata"
+          className="current-project-video"
+        />
+        <div className="current-project-caption">
+          Prototype turret test showing vision-guided tracking of a mug.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
       {/* Vertical Timeline */}
       <section id="timeline">
         <h2 className="section-title">

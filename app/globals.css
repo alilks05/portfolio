@@ -994,5 +994,122 @@ body {
     margin: 0 auto;
   }
 }
+.current-project {
+  margin: 4rem auto 6rem;
+  max-width: 1100px;
+  padding: 0 1.5rem;
+}
+
+.current-project-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 2rem 2.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.01)
+  );
+}
+
+.current-project-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.current-project-badge {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(255, 200, 0, 0.15);
+  color: #ffd166;
+  border: 1px solid rgba(255, 200, 0, 0.4);
+}
+
+.current-project-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.current-project-subtitle {
+  margin-top: 0.75rem;
+  opacity: 0.9;
+  max-width: 800px;
+}
+
+.current-project-bullets {
+  margin-top: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.current-project-bullets li {
+  margin-bottom: 0.5rem;
+}
+
+.current-project-meta {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.current-project-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.current-project-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.current-project-bullets {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+}
+
+.current-project-bullets li {
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+}
+
+.current-project-media {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.current-project-video {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: black;
+}
+
+.current-project-caption {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .current-project-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.current-project-video {
+  width: 100%;
+  max-width: 400px;     /* ← controls how big it can get */
+  aspect-ratio: 9 / 9; /* keeps it cinematic */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: black;
+}
+
 
 
