@@ -277,8 +277,8 @@ export default function HomePage() {
 
         <ul className="current-project-bullets">
           <li>
-            Designing the full mechanical architecture including structural layout,
-            actuator selection, and drivetrain geometry for a disk-launching mechanism.
+          Designing the full mechanical architecture of a disk launching mechanism, 
+          including structural layout, actuator selection, and drivetrain geometry.
           </li>
           <li>
             Performing torque, inertia, and acceleration calculations to size pan-tilt
@@ -289,8 +289,8 @@ export default function HomePage() {
             and system failure modes across iterative prototypes.
           </li>
           <li>
-            Integrating vision feedback with mechanical constraints to close the loop
-            between perception, actuation, and physical limits.
+          Designing mechanical interfaces and constraints that allow reliable integration 
+          of vision based targeting with physical actuation limits.
           </li>
         </ul>
 
