@@ -271,9 +271,8 @@ export default function HomePage() {
       {/* LEFT: Text */}
       <div className="current-project-text">
         <p className="current-project-subtitle">
-          An actively developed vision-guided electromechanical system focused on
-          real-time target tracking, repeatable launch performance, and robust
-          mechanical design.
+        The project is a stationary, vision guided turret that automatically aims
+        and launches disks at a detected target.
         </p>
 
         <ul className="current-project-bullets">
@@ -495,11 +494,11 @@ export default function HomePage() {
                   <span className="chip-label">GitHub</span>
                   <span className="chip-value">
                     <a
-                      href="https://github.com/alilks"
+                      href="https://github.com/alilks05"
                       target="_blank"
                       rel="noreferrer"
                     >
-                      @alilks
+                      @alilks05
                     </a>
                   </span>
                 </div>
