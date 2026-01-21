@@ -463,7 +463,7 @@ export default function HomePage() {
         type: "image",
         src: p.src,
         alt: p.alt,
-        fit: p.fit,
+        fit: p.fit as "contain" | "cover" | undefined,
       }))}
       photoHoldMs={2500}
       width={360}
