@@ -1112,4 +1112,64 @@ body {
 }
 
 
+.asg-one {
+  display: flex;          /* allow alignment rules */
+  align-items: center;    /* vertical centering */
+  justify-content: flex-start; /* ✅ left align */
+}
+
+
+/* shared */
+.asg-one-media {
+  display: block;
+}
+
+
+/* videos still fill */
+.asg-one-media.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* images: fully visible */
+.asg-one-media.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.04); /* subtle letterbox */
+}
+
+
+
+/* ONLY Vitruvius photos */
+.asg-one-media.image.is-contained {
+  width: auto;            /* 👈 THIS fixes the padding illusion */
+  height: auto;
+  max-width: 85%;
+  max-height: 85%;
+  object-fit: contain;
+}
+
+
+.asg-dots {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.asg-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  opacity: 0.35;
+  background: currentColor;
+}
+
+.asg-dot.is-active {
+  opacity: 0.9;
+}
+
 

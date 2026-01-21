@@ -1,4 +1,6 @@
 import CadViewer from "../components/CadViewer";
+import AutoScrollGallery from "../components/AutoScrollGallery";
+
 
 export const metadata = {
   title: "Ali Lakhani – Portfolio",
@@ -19,13 +21,22 @@ export default function HomePage() {
         "Engineering a complete respiratory and biometric sensing system, capturing key health metrics (VO₂ Max, RER, lung volume) while integrating embedded pressure, CO₂, O₂, and humidity sensors as well as a lip-mounted PPG module to measure heart rate and blood oxygenation (SpO₂).",
       // CAD + photo
       modelSrc: "/models/aerostim.glb",
-      photoSrc: "/images/aerostim-prototype.png",
+      photos: [
+        { src: "/images/aerostim-prototype.png", alt: "Aerostim prototype on benchtop rig", fit: "contain" },
+  { src: "/images/aerostim-prototype-2.png", alt: "Aerostim prototype angle 2", fit: "contain" },
+  { src: "/images/aerostim-prototype-3.png", alt: "Aerostim prototype close-up", fit: "contain" },
+  { src: "/images/aerostim-prototype-4.PNG", alt: "Aerostim prototype angle 2", fit: "contain" },
+  { src: "/images/aerostim-prototype-5.PNG", alt: "Aerostim prototype close-up", fit: "contain" },
+  { src: "/images/aerostim-prototype-6.png", alt: "Aerostim prototype angle 2", fit: "contain" },
+  { src: "/images/aerostim-prototype-7.png", alt: "Aerostim prototype close-up", fit: "contain" },
+      ],
       photoAlt: "Aerostim prototype on benchtop rig",
-      photoCaption: "Prototype assembly with Venturi tube, sensors, and PCB stack.",
+      photoCaption: "Prototype assembly with Venturi tube, sensors, app and PCB stack.",
       sections: {
         hardware: {
           bullets: [
             "Engineered a Venturi flow tube with three pressure sensors, validated through ANSYS and real-world tests.",
+            "Designed custom modular PCBs (including a wireless-charging-compatible PPG board) using Altium",
             "Designed a universal mouthpiece and sensor shell housing pressure, humidity, O₂, CO₂, and a lip-mounted PPG module.",
             "Applied DFA by integrating the main PCB and sensors directly into the tube for simple, fast assembly.",
             "Optimized DFM with proper draft angles, material choices, and simplified geometry for manufacturability.",
@@ -299,18 +310,23 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* RIGHT: Video */}
-      <div className="current-project-media">
-        <video
-          src="/videos/disk-launcher-demo.mp4"
-          controls
-          muted
-          playsInline
-          preload="metadata"
-          className="current-project-video"
-        />
+       {/* RIGHT: Auto-scrolling gallery */}
+       <div className="current-project-media" style={{ width: 360 }}>
+       <AutoScrollGallery
+  items={[
+    { type: "video", src: "/videos/disk-launcher-demo2.mov" },
+    { type: "image", src: "/images/diskLaunch1.png", alt: "Disk launcher prototype photo 1" },
+    { type: "video", src: "/videos/disk-launcher-demo.mp4" },
+   
+  ]}
+  photoHoldMs={5000}
+  videoMaxMs={5000}   // ✅ advance after 5s even if video is longer
+
+/>
+
+
         <div className="current-project-caption">
-          Prototype turret test showing vision-guided tracking of a mug.
+         
         </div>
       </div>
     </div>
@@ -440,18 +456,31 @@ export default function HomePage() {
         </div>
       )}
 
-      {item.photoSrc && (
-        <figure className="timeline-photo">
-          {/* if you're using next/image you can swap this for <Image> */}
-          <img
-            src={item.photoSrc}
-            alt={item.photoAlt || `${item.company} prototype`}
-          />
-          {item.photoCaption && (
-            <figcaption>{item.photoCaption}</figcaption>
-          )}
-        </figure>
-      )}
+{item.photos?.length ? (
+  <figure className="timeline-photo">
+    <AutoScrollGallery
+      items={item.photos.map((p) => ({
+        type: "image",
+        src: p.src,
+        alt: p.alt,
+        fit: p.fit,
+      }))}
+      photoHoldMs={2500}
+      width={360}
+      height={240}
+    />
+    {item.photoCaption && <figcaption>{item.photoCaption}</figcaption>}
+  </figure>
+) : item.photoSrc ? (
+  <figure className="timeline-photo">
+    <img
+      src={item.photoSrc}
+      alt={item.photoAlt || `${item.company} prototype`}
+    />
+    {item.photoCaption && <figcaption>{item.photoCaption}</figcaption>}
+  </figure>
+) : null}
+
     </div>
   )}
 </div>
