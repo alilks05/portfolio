@@ -142,65 +142,66 @@ export default function ProjectModal({
           {hasTabs && !showPhotos ? (
             <div className="cs-blocks">
               {activeTab?.blocks?.map((b, idx) => {
-                const hasMedia = !!b.leftMedia;
+  const media = b.leftMedia;
 
-                return (
-                  <div
-                    key={idx}
-                    className="cs-row"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: hasMedia
-                        ? "minmax(240px, 380px) 1fr"
-                        : "1fr",
-                      gap: 18,
-                      alignItems: "start",
-                    }}
-                  >
-                    {hasMedia && (
-                      <div className="cs-left">
-                        {b.leftMedia.type === "image" && (
-                          <img
-                            className="cs-leftMedia"
-                            src={b.leftMedia.src}
-                            alt={b.leftMedia.alt ?? b.title}
-                          />
-                        )}
+  return (
+    <div
+      key={idx}
+      className="cs-row"
+      style={{
+        display: "grid",
+        gridTemplateColumns: media
+          ? "minmax(240px, 380px) 1fr"
+          : "1fr",
+        gap: 18,
+        alignItems: "start",
+      }}
+    >
+      {media && (
+        <div className="cs-left">
+          {media.type === "image" && (
+            <img
+              className="cs-leftMedia"
+              src={media.src}
+              alt={media.alt ?? b.title}
+            />
+          )}
 
-                        {b.leftMedia.type === "video" && (
-                          <video
-                            className="cs-leftMedia"
-                            src={b.leftMedia.src}
-                            poster={b.leftMedia.poster}
-                            controls
-                            playsInline
-                          />
-                        )}
+          {media.type === "video" && (
+            <video
+              className="cs-leftMedia"
+              src={media.src}
+              poster={media.poster}
+              controls
+              playsInline
+            />
+          )}
 
-                        {b.leftMedia.type === "cad" && (
-                          <model-viewer
-                            src={b.leftMedia.src}
-                            poster={b.leftMedia.poster}
-                            className="cs-leftMedia cs-leftCad"
-                            camera-controls
-                            auto-rotate
-                            alt={b.leftMedia.alt ?? b.title}
-                          />
-                        )}
-                      </div>
-                    )}
+          {media.type === "cad" && (
+            <model-viewer
+              src={media.src}
+              poster={media.poster}
+              className="cs-leftMedia cs-leftCad"
+              camera-controls
+              auto-rotate
+              alt={media.alt ?? b.title}
+            />
+          )}
+        </div>
+      )}
 
-                    <div className="cs-right">
-                      <div className="cs-heading">{b.title}</div>
-                      <ul className="cs-bullets">
-                        {b.bullets.map((x, i) => (
-                          <li key={i}>{x}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                );
-              })}
+      <div className="cs-right">
+        <div className="cs-heading">{b.title}</div>
+        <ul className="cs-bullets">
+          {b.bullets.map((x, i) => (
+            <li key={i}>{x}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+})}
+
             </div>
           ) : (
             <div className="cs-photosGrid">
