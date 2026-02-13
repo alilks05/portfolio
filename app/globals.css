@@ -1172,4 +1172,350 @@ body {
   opacity: 0.9;
 }
 
+.storySection {
+  padding: 120px 0;
+}
+
+/* Two columns */
+.storyGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 520px; /* left text, right cad */
+  gap: 48px;
+  align-items: start;
+}
+
+/* LEFT column should start aligned with the sticky CAD */
+.storyPoints {
+  padding-top: 20vh; /* match the sticky top offset */
+}
+
+/* ONLY the CAD is sticky */
+.storyCadSticky {
+  position: sticky;
+  top: 20vh;         /* match your existing sticky position */
+}
+
+/* optional styling */
+.pointCard {
+  padding: 16px 18px;
+  border: 1px solid rgba(148,163,184,0.25);
+  border-radius: 16px;
+  margin-bottom: 14px;
+  background: rgba(255,255,255,0.02);
+}
+
+.storyTitle {
+  margin: 0 0 18px 0;
+}
+
+.view-more-btn {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+}
+
+.view-more-btn:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 9999;
+}
+
+.modal-card {
+  width: min(1000px, 95vw);
+  max-height: 85vh;
+  overflow: auto;
+  border-radius: 18px;
+  background: rgba(20, 20, 22, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 18px 12px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.modal-close:hover {
+  opacity: 1;
+}
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  padding: 0 18px 18px;
+}
+
+@media (max-width: 900px) {
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-main-img {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: block;
+}
+
+.modal-thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.thumb {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  padding: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.thumb.active {
+  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.30);
+}
+
+.thumb img {
+  display: block;
+  width: 86px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.modal-desc {
+  color: #ffffff; 
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* globals.css (add/replace these styles) */
+
+/* Overlay + card: inherit typography from your site */
+.cs-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);  /* slightly lighter */
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  z-index: 9999;
+}
+
+
+/* Make it match your site (dark glass) — swap to #fff if your site is light */
+/* Light (white/grey) modal */
+.cs-card {
+  width: min(1100px, 96vw);
+  max-height: 88vh;
+  overflow: auto;
+  border-radius: 18px;
+
+  /* ✅ Light theme */
+  background: #f8f9fb;                 /* soft light grey */
+  color: #111111;                     /* dark text */
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+
+  font-family: inherit;
+}
+
+.cs-topbar {
+  display: grid;
+  grid-template-columns: 220px 1fr 120px 40px;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 18px 10px;
+}
+
+.cs-cornerCadImg {
+  width: 200px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.cs-cornerCadPlaceholder {
+  font-size: 20px;
+  line-height: 1.1;
+  opacity: 0.9;
+}
+
+.cs-close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.8;
+}
+.cs-close:hover {
+  opacity: 1;
+}
+
+/* Better pill tabs (no yellow) */
+.cs-tabs {
+  justify-self: center;
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+}
+
+.cs-tab {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.cs-tab:hover {
+  opacity: 1;
+}
+
+.cs-tab.active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+.cs-photosBtn {
+  justify-self: end;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  line-height: 1.1;
+  opacity: 0.85;
+}
+.cs-photosBtn:hover {
+  opacity: 1;
+}
+
+.cs-body {
+  padding: 18px 18px 28px;
+}
+
+.cs-row {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  padding: 22px 0;
+}
+
+/* Left media should always show (CAD/photo/video) */
+.cs-leftMedia {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  display: block;
+}
+
+.cs-heading {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.cs-bullets {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+.cs-photosGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cs-photo {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.cs-empty {
+  opacity: 0.7;
+}
+
+@media (max-width: 900px) {
+  .cs-topbar {
+    grid-template-columns: 1fr auto auto auto;
+  }
+  .cs-cornerCad {
+    display: none;
+  }
+  .cs-row {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cs-photosGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cs-leftCad {
+  background: #f2f3f6;
+  border-radius: 16px;
+}
+
+/* Ensure model-viewer fills container nicely */
+model-viewer.cs-leftMedia {
+  width: 100%;
+  height: 320px;
+  border-radius: 16px;
+}
+
 

@@ -1,47 +1,88 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useMemo, useRef } from "react";
 import ModelViewerClient from "./ModelViewerClient";
 
-// TS-safe alias so we don’t rely on JSX intrinsic typings
 const ModelViewer: any = "model-viewer";
 
 export default function CadViewer({
   src,
   alt = "3D model",
   height = 380,
+  orbitDeg,
+  orbitPhiDeg = 65,
+  orbitRadius = "3m",
+  cameraControls = true,
+  rotation,
 }: {
   src: string;
   alt?: string;
   height?: number;
+  orbitDeg?: number;
+  orbitPhiDeg?: number;
+  orbitRadius?: string;
+  cameraControls?: boolean;
+  rotation?: string; // e.g. "90deg 0deg 0deg"
 }) {
+  const mvRef = useRef<any>(null);
+
+  const cameraOrbit = useMemo(() => {
+    return `${orbitDeg ?? 45}deg ${orbitPhiDeg}deg ${orbitRadius}`;
+  }, [orbitDeg, orbitPhiDeg, orbitRadius]);
+
+  // ✅ Apply rotation as an attribute (reliable for web components)
+  useEffect(() => {
+    const el = mvRef.current;
+    if (!el) return;
+
+    if (rotation) {
+      el.setAttribute("rotation", rotation);
+    } else {
+      // if you want: remove it when not provided
+      el.removeAttribute("rotation");
+    }
+  }, [rotation]);
+
+  // ✅ Also apply camera-orbit reliably (same reason)
+  useEffect(() => {
+    const el = mvRef.current;
+    if (!el) return;
+    el.setAttribute("camera-orbit", cameraOrbit);
+  }, [cameraOrbit]);
+
   return (
     <div
       style={{
         width: "100%",
         height,
-        borderRadius: 12,
-        overflow: "hidden",
-        border: "1px solid rgba(148,163,184,0.3)",
-        background:
-          "radial-gradient(circle at 30% 0%, #0b1120 0%, #020617 40%, #000 100%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "transparent",
       }}
     >
-      {/* Registers <model-viewer> on the client (once) */}
       <ModelViewerClient />
-
+  
       <ModelViewer
+        ref={mvRef}
         src={src}
         alt={alt}
-        style={{ width: "100%", height: "100%", display: "block" }}
-        camera-controls
-        auto-rotate
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "block",
+        }}
+        camera-target="0m 0m 0m"            // ✅ forces center pivot
+        min-camera-orbit="auto auto 2m"     // optional stability
+        max-camera-orbit="auto auto 6m"
+        {...(cameraControls ? { "camera-controls": true } : {})}
         environment-image="neutral"
         exposure="1"
-        shadow-intensity="1"
-        camera-orbit="45deg 65deg 3m"
+        shadow-intensity="0"
         ar
         ar-modes="webxr scene-viewer quick-look"
       />
     </div>
   );
+  
 }

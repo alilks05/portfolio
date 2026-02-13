@@ -23,11 +23,15 @@ export default function RootLayout({
               <div className="logo-mark">A</div>
               <span>Ali&nbsp;Lakhani</span>
             </div>
+
             <nav className="nav-links">
-              <Link href="/">Home</Link>
-              <Link href="#timeline">Projects</Link>
+              {/* Experiences section */}
+              <a href="#experiences">Experiences</a>
+              {/* Experiences section */}
+              <a href="#skills">Skills</a>
+
+              {/* Contact section */}
               <a href="#contact">Contact</a>
-              {/* optional separate /contact page later */}
             </nav>
           </header>
 
