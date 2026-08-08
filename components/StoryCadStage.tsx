@@ -97,39 +97,42 @@ function CloneWithOpacity({
    Rotating stage (Apple-style scroll rotation)
 ------------------------------------------------------------- */
 function RotatingStage({
+  jetsonSrc,
   turretSrc,
   aerostimSrc,
   voltSrc,
   sippuffSrc,
   vexSrc,
   yawDeg,
+  diskMix,
   aerostimMix,
   voltMix,
   sippuffMix,
   vexMix,
+  jetsonRotationDeg,
   turretRotationDeg,
   aerostimRotationDeg,
   voltRotationDeg,
   sippuffRotationDeg,
   vexRotationDeg,
 }: {
+  jetsonSrc: string;
   turretSrc: string;
   aerostimSrc: string;
   voltSrc: string;
   sippuffSrc: string;
   vexSrc: string;
-  yawDeg: number;
 
-  // mix signals are cumulative transitions:
-  // aerostimMix: turret -> aerostim
-  // voltMix:     aerostim -> volt
-  // sippuffMix:  volt -> sippuff
-  // vexMix:      sippuff -> vex
-  aerostimMix: number;
-  voltMix: number;
-  sippuffMix: number;
-  vexMix: number;
+  height?: number;
+  orbitDeg?: number;
 
+  diskMix?: number;
+  aerostimMix?: number;
+  voltMix?: number;
+  sippuffMix?: number;
+  vexMix?: number;
+
+  jetsonRotationDeg?: [number, number, number];
   turretRotationDeg?: [number, number, number];
   aerostimRotationDeg?: [number, number, number];
   voltRotationDeg?: [number, number, number];
@@ -145,7 +148,8 @@ function RotatingStage({
   });
 
   // ✅ 5-way blend (each stage fades out when the next fades in)
-  const turretOpacity = 1 - aerostimMix;
+  const jetsonOpacity = 1 - diskMix;
+const turretOpacity = diskMix * (1 - aerostimMix);
   const aerostimOpacity = aerostimMix * (1 - voltMix);
   const voltOpacity = voltMix * (1 - sippuffMix);
   const sippuffOpacity = sippuffMix * (1 - vexMix);
@@ -155,6 +159,13 @@ function RotatingStage({
     <group ref={stageRef}>
       <Suspense fallback={null}>
         <Environment preset="warehouse" />
+
+        <CloneWithOpacity
+  src={jetsonSrc}
+  opacity={jetsonOpacity}
+  baseRotationDeg={jetsonRotationDeg}
+  targetSize={2.8}
+/>
 
         {/* Turret CAD */}
         <CloneWithOpacity
@@ -204,6 +215,7 @@ function RotatingStage({
    Exported Stage Component
 ------------------------------------------------------------- */
 export default function StoryCadStage({
+  jetsonSrc,
   turretSrc,
   aerostimSrc,
   voltSrc,
@@ -211,16 +223,19 @@ export default function StoryCadStage({
   vexSrc,
   height = 520,
   orbitDeg = 45,
+  diskMix = 0,
   aerostimMix = 0,
   voltMix = 0,
   sippuffMix = 0,
   vexMix = 0,
+  jetsonRotationDeg = [0, 0, 0],
   turretRotationDeg = [0, 0, 0],
   aerostimRotationDeg = [0, 0, 0],
   voltRotationDeg = [0, 0, 0],
   sippuffRotationDeg = [0, 0, 0],
   vexRotationDeg = [0, 0, 0],
 }: {
+  jetsonSrc: string;
   turretSrc: string;
   aerostimSrc: string;
   voltSrc: string;
@@ -229,11 +244,13 @@ export default function StoryCadStage({
   height?: number;
   orbitDeg?: number;
 
-  aerostimMix?: number;
-  voltMix?: number;
-  sippuffMix?: number;
-  vexMix?: number;
+  diskMix: number;
+aerostimMix: number;
+voltMix: number;
+sippuffMix: number;
+vexMix: number;
 
+  jetsonRotationDeg?: [number, number, number];
   turretRotationDeg?: [number, number, number];
   aerostimRotationDeg?: [number, number, number];
   voltRotationDeg?: [number, number, number];
@@ -254,16 +271,21 @@ export default function StoryCadStage({
         <directionalLight position={[4, 6, 3]} intensity={1.3} />
 
         <RotatingStage
+        jetsonSrc={jetsonSrc}
           turretSrc={turretSrc}
           aerostimSrc={aerostimSrc}
           voltSrc={voltSrc}
           sippuffSrc={sippuffSrc}
           vexSrc={vexSrc}
           yawDeg={orbitDeg}
+
+          diskMix={diskMix}
           aerostimMix={aerostimMix}
           voltMix={voltMix}
           sippuffMix={sippuffMix}
           vexMix={vexMix}
+
+          jetsonRotationDeg={jetsonRotationDeg}
           turretRotationDeg={turretRotationDeg}
           aerostimRotationDeg={aerostimRotationDeg}
           voltRotationDeg={voltRotationDeg}
@@ -279,6 +301,9 @@ export default function StoryCadStage({
 }
 
 /* Preload models */
+useGLTF.preload(
+  "/models/A908 - Rivian Topper - Manual Tonneau - Tall Proto-compressed.glb"
+);
 useGLTF.preload("/models/turret30kgservos.glb");
 useGLTF.preload("/models/aerostim.glb");
 useGLTF.preload("/models/funnel.glb");

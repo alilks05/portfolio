@@ -68,41 +68,38 @@ export default function ScrollStory() {
    */
 
   // --- TIMELINE (edit these) ---
-  const SECTION_HEIGHT_VH = 520; // (recommend bumping now that you added a 5th)
-const segWeights = [1, 1, 1, 1, 1]; // [disk, aerostim, volt, sippuff, vex]
+  const SECTION_HEIGHT_VH = 620;
+  const segWeights = [1, 1, 1, 1, 1, 1]; // [jetson, disk, aerostim, volt, sippuff, vex]
 
-const sum = segWeights.reduce((a, b) => a + b, 0);
-const w = segWeights.map((x) => x / sum);
+  const sum = segWeights.reduce((a, b) => a + b, 0);
+  const w = segWeights.map((x) => x / sum);
 
-const B0 = 0;
-const B1 = w[0];
-const B2 = w[0] + w[1];
-const B3 = w[0] + w[1] + w[2];
-const B4 = w[0] + w[1] + w[2] + w[3];
-const B5 = 1;
+  const B0 = 0;
+  const B1 = w[0];
+  const B2 = w[0] + w[1];
+  const B3 = w[0] + w[1] + w[2];
+  const B4 = w[0] + w[1] + w[2] + w[3];
+  const B5 = w[0] + w[1] + w[2] + w[3] + w[4];
+  const B6 = 1;
 
-
-  const TURNS_PER_MODEL = 1.0; // slower spin
+  const TURNS_PER_MODEL = 1.0;
   const DEG_PER_TURN = 360;
 
-  // segment index
   let segIndex = 0;
-if (p >= B4) segIndex = 4;
-else if (p >= B3) segIndex = 3;
-else if (p >= B2) segIndex = 2;
-else if (p >= B1) segIndex = 1;
+  if (p >= B5) segIndex = 5;
+  else if (p >= B4) segIndex = 4;
+  else if (p >= B3) segIndex = 3;
+  else if (p >= B2) segIndex = 2;
+  else if (p >= B1) segIndex = 1;
 
-
-  const segStarts = [B0, B1, B2, B3, B4];
-const segEnds = [B1, B2, B3, B4, B5];
-
+  const segStarts = [B0, B1, B2, B3, B4, B5];
+  const segEnds = [B1, B2, B3, B4, B5, B6];
 
   const localRaw = segProgress(p, segStarts[segIndex], segEnds[segIndex]);
   const localT = smoothstep(0, 1, localRaw);
 
   const completedTurns = segIndex * TURNS_PER_MODEL;
   const currentTurns = localT * TURNS_PER_MODEL;
-
   const orbitDeg = 45 + (completedTurns + currentTurns) * DEG_PER_TURN;
 
   const d1 = B1 - B0;
@@ -110,25 +107,35 @@ const segEnds = [B1, B2, B3, B4, B5];
   const d3 = B3 - B2;
   const d4 = B4 - B3;
   const d5 = B5 - B4;
+  const d6 = B6 - B5;
 
-  const aerostimMix = smoothstep(B1, B1 + d2 * 0.25, p);
-  const voltMix = smoothstep(B2, B2 + d3 * 0.25, p);
-  const sippuffMix = smoothstep(B3, B3 + d4 * 0.25, p);
-  const vexMix       = smoothstep(B4, B4 + d5 * 0.25, p);
+  // CAD transitions
+  const diskMix = smoothstep(B1, B1 + d2 * 0.25, p);
+  const aerostimMix = smoothstep(B2, B2 + d3 * 0.25, p);
+  const voltMix = smoothstep(B3, B3 + d4 * 0.25, p);
+  const sippuffMix = smoothstep(B4, B4 + d5 * 0.25, p);
+  const vexMix = smoothstep(B5, B5 + d6 * 0.25, p);
 
-  const diskText = 1 - smoothstep(B0 + d1 * 0.7, B0 + d1 * 0.95, p);
+  // Text transitions
+  const jetsonText = 1 - smoothstep(B1, B1 + d2 * 0.25, p);
 
-  const aerocardiaText =
-    smoothstep(B1 + d2 * 0.1, B1 + d2 * 0.6, p) *
+  const diskText =
+    smoothstep(B1, B1 + d2 * 0.25, p) *
     (1 - smoothstep(B2, B2 + d3 * 0.25, p));
 
-  const voltText =
+  const aerocardiaText =
     smoothstep(B2, B2 + d3 * 0.25, p) *
     (1 - smoothstep(B3, B3 + d4 * 0.25, p));
 
-  const sippuffText = smoothstep(B3, B3 + d4 * 0.25, p);
+  const voltText =
+    smoothstep(B3, B3 + d4 * 0.25, p) *
+    (1 - smoothstep(B4, B4 + d5 * 0.25, p));
 
-  const vexText = smoothstep(B4, B4 + d5 * 0.25, p);
+  const sippuffText =
+    smoothstep(B4, B4 + d5 * 0.25, p) *
+    (1 - smoothstep(B5, B5 + d6 * 0.25, p));
+
+  const vexText = smoothstep(B5, B5 + d6 * 0.25, p);
 
 
   return (
@@ -254,6 +261,130 @@ const segEnds = [B1, B2, B3, B4, B5];
                         { src: "/images/airseperator.png", alt: "Photo 1" },
                         { src: "/images/funnel.png", alt: "Photo 2" },
                         { src: "/images/voltCar.png", alt: "Photo 3" },
+                      ],
+                    })
+                  }
+                >
+                  View more
+                </button>
+              </div>
+            ) : jetsonText > 0.02 ? (
+              <div style={{ opacity: jetsonText }}>
+                <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 10 }}>
+                  Jetson: Rivian R1T Fleet Vehicles
+                </div>
+
+                <ul
+                  style={{
+                    margin: 0,
+                    paddingLeft: 18,
+                    lineHeight: 1.7,
+                    opacity: 0.75,
+                  }}
+                >
+                  <li>
+                    Designed a Rivian R1T fleet service truck system for deployment
+                    across 11+ Jetson locations in North America.
+                  </li>
+                </ul>
+
+                <button
+                  type="button"
+                  className="view-more-btn"
+                  style={{ marginTop: 12 }}
+                  onClick={() =>
+                    openModal({
+                      id: "jetson-rivian",
+                      title: "Jetson: Rivian R1T Fleet Vehicles",
+                      cornerCad: {
+                        src: "/images/jetson-rivian-1.jpeg",
+                        alt: "Rivian R1T fleet vehicle",
+                      },
+                      tabs: [
+                        {
+                          key: "mechanical",
+                          label: "Mechanical",
+                          blocks: [
+                            {
+                              leftMedia: {
+                                type: "image",
+                                src: "/images/jetson-rivian-1.jpeg",
+                                alt: "Rivian R1T fleet storage system",
+                              },
+                              title: "Fleet Storage System",
+                              bullets: [
+                                "Designed a truck-bed storage system for Jetson's Rivian R1T service fleet.",
+                                "Developed SolidWorks CAD concepts around technician storage, vehicle packaging, and field use.",
+                                "Performed material selection and tolerance analysis throughout the design process.",
+                              ],
+                            },
+                            {
+                              leftMedia: {
+                                type: "image",
+                                src: "/images/jetson-rivian-2.jpeg",
+                                alt: "Rivian R1T storage system prototype",
+                              },
+                              title: "Prototype & Manufacturing",
+                              bullets: [
+                                "Worked with manufacturing partners to turn CAD concepts into physical prototypes.",
+                                "Iterated the design based on manufacturability, fit, and installation requirements.",
+                                "Coordinated the design with Rivian and external manufacturing partners.",
+                              ],
+                            },
+                            {
+                              leftMedia: {
+                                type: "image",
+                                src: "/images/jetson-rivian-3.jpeg",
+                                alt: "Rivian R1T pilot installation",
+                              },
+                              title: "Pilot Installation & Validation",
+                              bullets: [
+                                "Validated the system through pilot installations and testing at Jetson's Denver lab.",
+                                "Used installation feedback to identify changes before broader fleet deployment.",
+                                "Designed the system for rollout across 11+ Jetson locations in North America.",
+                              ],
+                            },
+                          ],
+                        },
+                        {
+                          key: "hardware",
+                          label: "Hardware",
+                          blocks: [
+                            {
+                              leftMedia: {
+                                type: "image",
+                                src: "/images/jetson-lora-1.jpeg",
+                                alt: "Jetson LoRa SmartHub hardware",
+                              },
+                              title: "LoRa SmartHub",
+                              bullets: [
+                                "Designed a custom LoRa-based PCB in Altium around an STM32F446.",
+                                "Developed the schematic and PCB layout for the wireless communication system.",
+                                "Integrated the hardware with existing Jetson HVAC products.",
+                              ],
+                            },
+                            {
+                              leftMedia: {
+                                type: "image",
+                                src: "/images/jetson-lora-2.jpeg",
+                                alt: "Jetson HVAC wireless communication system",
+                              },
+                              title: "Wireless HVAC Communication",
+                              bullets: [
+                                "Developed a wireless bridge to replace the existing wired RS-485 connection between HVAC systems.",
+                                "Reverse engineered the existing communication protocol to support integration with Jetson hardware.",
+                                "Developed C firmware for the STM32-based system.",
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                      gallery: [
+                        { src: "/images/r1.png", alt: "Rivian R1T" },
+                        { src: "/images/r2.png", alt: "Rivian R1T storage system" },
+                        { src: "/images/r3.png", alt: "Rivian R1T pilot installation" },
+                        { src: "/images/r4.PNG", alt: "Jetson LoRa SmartHub hardware" },
+                        { src: "/images/r5.jpg", alt: "Jetson HVAC hardware" },
                       ],
                     })
                   }
@@ -412,23 +543,26 @@ const segEnds = [B1, B2, B3, B4, B5];
               }}
             >
               <StoryCadStage
-  turretSrc="/models/turret30kgservos.glb"
-  aerostimSrc="/models/aerostim.glb"
-  voltSrc="/models/funnel.glb"
-  sippuffSrc="/models/sipandpuff.glb"
-  vexSrc="/models/Full_Robot_v3.glb"
-  height={480}
-  orbitDeg={orbitDeg}
-  aerostimMix={aerostimMix}
-  voltMix={voltMix}
-  sippuffMix={sippuffMix}
-  vexMix={vexMix}
-  turretRotationDeg={[90, 0, 0]}
-  aerostimRotationDeg={[0, 0, 0]}
-  voltRotationDeg={[10, 0, 0]}
-  sippuffRotationDeg={[-20, 0, 0]}
-  vexRotationDeg={[0, 0, 0]}
-/>
+                jetsonSrc="/models/A908 - Rivian Topper - Manual Tonneau - Tall Proto-compressed.glb"
+                turretSrc="/models/turret30kgservos.glb"
+                aerostimSrc="/models/aerostim.glb"
+                voltSrc="/models/funnel.glb"
+                sippuffSrc="/models/sipandpuff.glb"
+                vexSrc="/models/Full_Robot_v3.glb"
+                height={480}
+                orbitDeg={orbitDeg}
+                diskMix={diskMix}
+                aerostimMix={aerostimMix}
+                voltMix={voltMix}
+                sippuffMix={sippuffMix}
+                vexMix={vexMix}
+                jetsonRotationDeg={[-45, 0, 0]}
+                turretRotationDeg={[90, 0, 0]}
+                aerostimRotationDeg={[0, 0, 0]}
+                voltRotationDeg={[10, 0, 0]}
+                sippuffRotationDeg={[-20, 0, 0]}
+                vexRotationDeg={[0, 0, 0]}
+              />
             </div>
           ) : (
             <div style={{ height: 480 }} />

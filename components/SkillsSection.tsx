@@ -78,8 +78,8 @@ export default function SkillsSection() {
                 "KiCad",
                 "STM32",
                 "ESP32",
-                "Arduino",
-                "Sensor Integration (I²C/SPI/UART)",
+                "Embedded Communcation (I²C/SPI/UART/Modbus RTU/RS-485)",
+                "Wireless (LoRa/BLE/Wi-fi)",
               ],
             },
             {

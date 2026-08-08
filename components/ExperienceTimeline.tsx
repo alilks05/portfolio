@@ -11,7 +11,15 @@ type Experience = {
 };
 
 const experiences: Experience[] = [
-    {
+  {
+    company: "Jetson",
+    role: "Hardware Systems Engineering Intern",
+    date: "May 2026 – Aug 2026",
+    description:
+      "Develop a LoRa based smarthub system to enable communication between Jetson HVAC units. In collaboration with Rivian designed a fleet service truck to be rolled out in 11+ Jetson locations across North America.",
+    tags: ["Hardware Product Design" ,"SolidWorks", "Altium", "STM32", "C"],
+  },
+  {
       company: "Aerocardia",
       role: "Mechatronics Engineering Intern",
       date: "Sep 2025 – Dec 2025",
