@@ -123,14 +123,13 @@ function RotatingStage({
   sippuffSrc: string;
   vexSrc: string;
 
-  height?: number;
-  orbitDeg?: number;
+  yawDeg: number;
 
-  diskMix?: number;
-  aerostimMix?: number;
-  voltMix?: number;
-  sippuffMix?: number;
-  vexMix?: number;
+diskMix: number;
+aerostimMix: number;
+voltMix: number;
+sippuffMix: number;
+vexMix: number;
 
   jetsonRotationDeg?: [number, number, number];
   turretRotationDeg?: [number, number, number];
@@ -244,11 +243,11 @@ export default function StoryCadStage({
   height?: number;
   orbitDeg?: number;
 
-  diskMix: number;
-aerostimMix: number;
-voltMix: number;
-sippuffMix: number;
-vexMix: number;
+  diskMix?: number;
+aerostimMix?: number;
+voltMix?: number;
+sippuffMix?: number;
+vexMix?: number;
 
   jetsonRotationDeg?: [number, number, number];
   turretRotationDeg?: [number, number, number];

@@ -288,7 +288,7 @@ export default function ScrollStory() {
                   </li>
                 </ul>
 
-                <button
+                {/* <button
                   type="button"
                   className="view-more-btn"
                   style={{ marginTop: 12 }}
@@ -390,7 +390,7 @@ export default function ScrollStory() {
                   }
                 >
                   View more
-                </button>
+                </button> */}
               </div>
             ) : (
               <div style={{ opacity: diskText }}>
@@ -556,7 +556,7 @@ export default function ScrollStory() {
                 voltMix={voltMix}
                 sippuffMix={sippuffMix}
                 vexMix={vexMix}
-                jetsonRotationDeg={[-45, 0, 0]}
+                jetsonRotationDeg={[45, 0, 0]}
                 turretRotationDeg={[90, 0, 0]}
                 aerostimRotationDeg={[0, 0, 0]}
                 voltRotationDeg={[10, 0, 0]}
