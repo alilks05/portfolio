@@ -14,11 +14,13 @@ function CloneWithOpacity({
   opacity,
   baseRotationDeg = [0, 0, 0],
   targetSize = 2.6,
+  color,
 }: {
   src: string;
   opacity: number;
   baseRotationDeg?: [number, number, number];
   targetSize?: number;
+  color?: string;
 }) {
   const { scene } = useGLTF(src);
   const [scale, setScale] = useState(1);
@@ -68,6 +70,7 @@ function CloneWithOpacity({
           m.transparent = true;
           m.opacity = opacity;
           m.depthWrite = opacity > 0.5;
+          
           m.needsUpdate = true;
         });
       }

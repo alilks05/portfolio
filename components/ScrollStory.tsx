@@ -556,7 +556,7 @@ export default function ScrollStory() {
                 voltMix={voltMix}
                 sippuffMix={sippuffMix}
                 vexMix={vexMix}
-                jetsonRotationDeg={[45, 0, 0]}
+                jetsonRotationDeg={[290, 0, 0]}
                 turretRotationDeg={[90, 0, 0]}
                 aerostimRotationDeg={[0, 0, 0]}
                 voltRotationDeg={[10, 0, 0]}
