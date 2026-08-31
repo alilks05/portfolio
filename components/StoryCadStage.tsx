@@ -123,7 +123,7 @@ function RotatingStage({
   vexRotationDeg,
 }: {
   jetsonSrc: string;
-  jetsonHubSrc: string,
+  jetsonHubSrc: string;
   turretSrc: string;
   aerostimSrc: string;
   voltSrc: string;
@@ -132,12 +132,12 @@ function RotatingStage({
 
   yawDeg: number;
 
-diskMix: number;
-jetsonHubMix: string;
-aerostimMix: number;
-voltMix: number;
-sippuffMix: number;
-vexMix: number;
+  jetsonHubMix: number;
+  diskMix: number;
+  aerostimMix: number;
+  voltMix: number;
+  sippuffMix: number;
+  vexMix: number;
 
   jetsonRotationDeg?: [number, number, number];
   jetsonHubRotationDeg?: [number, number, number];
