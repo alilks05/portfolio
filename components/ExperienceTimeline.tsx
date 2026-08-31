@@ -28,7 +28,7 @@ const experiences: Experience[] = [
       tags: ["SolidWorks", "Altium", "ESP32", "MATLAB", "Python"],
     },
     {
-      company: "Volt Carbon Technologies",
+      company: "Solid Ultra Battery",
       role: "Manufacturing Engineering Intern",
       date: "Jan 2025 – Mar 2025",
       description:

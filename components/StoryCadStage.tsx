@@ -101,18 +101,21 @@ function CloneWithOpacity({
 ------------------------------------------------------------- */
 function RotatingStage({
   jetsonSrc,
+  jetsonHubSrc,
   turretSrc,
   aerostimSrc,
   voltSrc,
   sippuffSrc,
   vexSrc,
   yawDeg,
+  jetsonHubMix,
   diskMix,
   aerostimMix,
   voltMix,
   sippuffMix,
   vexMix,
   jetsonRotationDeg,
+  jetsonHubRotationDeg,
   turretRotationDeg,
   aerostimRotationDeg,
   voltRotationDeg,
@@ -120,6 +123,7 @@ function RotatingStage({
   vexRotationDeg,
 }: {
   jetsonSrc: string;
+  jetsonHubSrc: string,
   turretSrc: string;
   aerostimSrc: string;
   voltSrc: string;
@@ -129,12 +133,14 @@ function RotatingStage({
   yawDeg: number;
 
 diskMix: number;
+jetsonHubMix: string;
 aerostimMix: number;
 voltMix: number;
 sippuffMix: number;
 vexMix: number;
 
   jetsonRotationDeg?: [number, number, number];
+  jetsonHubRotationDeg?: [number, number, number];
   turretRotationDeg?: [number, number, number];
   aerostimRotationDeg?: [number, number, number];
   voltRotationDeg?: [number, number, number];
@@ -150,12 +156,13 @@ vexMix: number;
   });
 
   // ✅ 5-way blend (each stage fades out when the next fades in)
-  const jetsonOpacity = 1 - diskMix;
+  const jetsonOpacity = 1 - jetsonHubMix;
+const jetsonHubOpacity = jetsonHubMix * (1 - diskMix);
 const turretOpacity = diskMix * (1 - aerostimMix);
-  const aerostimOpacity = aerostimMix * (1 - voltMix);
-  const voltOpacity = voltMix * (1 - sippuffMix);
-  const sippuffOpacity = sippuffMix * (1 - vexMix);
-  const vexOpacity = vexMix;
+const aerostimOpacity = aerostimMix * (1 - voltMix);
+const voltOpacity = voltMix * (1 - sippuffMix);
+const sippuffOpacity = sippuffMix * (1 - vexMix);
+const vexOpacity = vexMix;
 
   return (
     <group ref={stageRef}>
@@ -166,6 +173,14 @@ const turretOpacity = diskMix * (1 - aerostimMix);
   src={jetsonSrc}
   opacity={jetsonOpacity}
   baseRotationDeg={jetsonRotationDeg}
+  targetSize={2.8}
+/>
+
+        {/* JetsonHub CAD */}
+<CloneWithOpacity
+  src={jetsonHubSrc}
+  opacity={jetsonHubOpacity}
+  baseRotationDeg={jetsonHubRotationDeg}
   targetSize={2.8}
 />
 
@@ -218,6 +233,7 @@ const turretOpacity = diskMix * (1 - aerostimMix);
 ------------------------------------------------------------- */
 export default function StoryCadStage({
   jetsonSrc,
+  jetsonHubSrc,
   turretSrc,
   aerostimSrc,
   voltSrc,
@@ -226,11 +242,13 @@ export default function StoryCadStage({
   height = 520,
   orbitDeg = 45,
   diskMix = 0,
+  jetsonHubMix = 0,
   aerostimMix = 0,
   voltMix = 0,
   sippuffMix = 0,
   vexMix = 0,
   jetsonRotationDeg = [0, 0, 0],
+  jetsonHubRotationDeg = [0, 0, 0],
   turretRotationDeg = [0, 0, 0],
   aerostimRotationDeg = [0, 0, 0],
   voltRotationDeg = [0, 0, 0],
@@ -238,6 +256,7 @@ export default function StoryCadStage({
   vexRotationDeg = [0, 0, 0],
 }: {
   jetsonSrc: string;
+  jetsonHubSrc: string;
   turretSrc: string;
   aerostimSrc: string;
   voltSrc: string;
@@ -245,7 +264,7 @@ export default function StoryCadStage({
   vexSrc: string;
   height?: number;
   orbitDeg?: number;
-
+  jetsonHubMix?: number;
   diskMix?: number;
 aerostimMix?: number;
 voltMix?: number;
@@ -253,6 +272,7 @@ sippuffMix?: number;
 vexMix?: number;
 
   jetsonRotationDeg?: [number, number, number];
+  jetsonHubRotationDeg?: [number, number, number];
   turretRotationDeg?: [number, number, number];
   aerostimRotationDeg?: [number, number, number];
   voltRotationDeg?: [number, number, number];
@@ -274,6 +294,7 @@ vexMix?: number;
 
         <RotatingStage
         jetsonSrc={jetsonSrc}
+        jetsonHubSrc={jetsonHubSrc}
           turretSrc={turretSrc}
           aerostimSrc={aerostimSrc}
           voltSrc={voltSrc}
@@ -282,12 +303,14 @@ vexMix?: number;
           yawDeg={orbitDeg}
 
           diskMix={diskMix}
+          jetsonHubMix={jetsonHubMix}
           aerostimMix={aerostimMix}
           voltMix={voltMix}
           sippuffMix={sippuffMix}
           vexMix={vexMix}
 
           jetsonRotationDeg={jetsonRotationDeg}
+          jetsonHubRotationDeg={jetsonHubRotationDeg}
           turretRotationDeg={turretRotationDeg}
           aerostimRotationDeg={aerostimRotationDeg}
           voltRotationDeg={voltRotationDeg}
@@ -306,6 +329,7 @@ vexMix?: number;
 useGLTF.preload(
   "/models/A908 - Rivian Topper - Manual Tonneau - Tall Proto-compressed.glb"
 );
+useGLTF.preload("/models/JetsonHub.glb");
 useGLTF.preload("/models/turret30kgservos.glb");
 useGLTF.preload("/models/aerostim.glb");
 useGLTF.preload("/models/funnel.glb");

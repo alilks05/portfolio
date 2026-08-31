@@ -68,32 +68,35 @@ export default function ScrollStory() {
    */
 
   // --- TIMELINE (edit these) ---
-  const SECTION_HEIGHT_VH = 620;
-  const segWeights = [1, 1, 1, 1, 1, 1]; // [jetson, disk, aerostim, volt, sippuff, vex]
+  const SECTION_HEIGHT_VH = 720;
+const segWeights = [1, 1, 1, 1, 1, 1, 1];
+// [rivian, jetsonHub, disk, aerostim, volt, sippuff, vex]
 
-  const sum = segWeights.reduce((a, b) => a + b, 0);
-  const w = segWeights.map((x) => x / sum);
+const sum = segWeights.reduce((a, b) => a + b, 0);
+const w = segWeights.map((x) => x / sum);
 
-  const B0 = 0;
-  const B1 = w[0];
-  const B2 = w[0] + w[1];
-  const B3 = w[0] + w[1] + w[2];
-  const B4 = w[0] + w[1] + w[2] + w[3];
-  const B5 = w[0] + w[1] + w[2] + w[3] + w[4];
-  const B6 = 1;
+const B0 = 0;
+const B1 = w[0];
+const B2 = w[0] + w[1];
+const B3 = w[0] + w[1] + w[2];
+const B4 = w[0] + w[1] + w[2] + w[3];
+const B5 = w[0] + w[1] + w[2] + w[3] + w[4];
+const B6 = w[0] + w[1] + w[2] + w[3] + w[4] + w[5];
+const B7 = 1;
 
   const TURNS_PER_MODEL = 1.0;
   const DEG_PER_TURN = 360;
 
   let segIndex = 0;
-  if (p >= B5) segIndex = 5;
-  else if (p >= B4) segIndex = 4;
-  else if (p >= B3) segIndex = 3;
-  else if (p >= B2) segIndex = 2;
-  else if (p >= B1) segIndex = 1;
+if (p >= B6) segIndex = 6;
+else if (p >= B5) segIndex = 5;
+else if (p >= B4) segIndex = 4;
+else if (p >= B3) segIndex = 3;
+else if (p >= B2) segIndex = 2;
+else if (p >= B1) segIndex = 1;
 
-  const segStarts = [B0, B1, B2, B3, B4, B5];
-  const segEnds = [B1, B2, B3, B4, B5, B6];
+const segStarts = [B0, B1, B2, B3, B4, B5, B6];
+const segEnds = [B1, B2, B3, B4, B5, B6, B7];
 
   const localRaw = segProgress(p, segStarts[segIndex], segEnds[segIndex]);
   const localT = smoothstep(0, 1, localRaw);
@@ -103,39 +106,47 @@ export default function ScrollStory() {
   const orbitDeg = 45 + (completedTurns + currentTurns) * DEG_PER_TURN;
 
   const d1 = B1 - B0;
-  const d2 = B2 - B1;
-  const d3 = B3 - B2;
-  const d4 = B4 - B3;
-  const d5 = B5 - B4;
-  const d6 = B6 - B5;
+const d2 = B2 - B1;
+const d3 = B3 - B2;
+const d4 = B4 - B3;
+const d5 = B5 - B4;
+const d6 = B6 - B5;
+const d7 = B7 - B6;
 
-  // CAD transitions
-  const diskMix = smoothstep(B1, B1 + d2 * 0.25, p);
-  const aerostimMix = smoothstep(B2, B2 + d3 * 0.25, p);
-  const voltMix = smoothstep(B3, B3 + d4 * 0.25, p);
-  const sippuffMix = smoothstep(B4, B4 + d5 * 0.25, p);
-  const vexMix = smoothstep(B5, B5 + d6 * 0.25, p);
+// CAD transitions
+const jetsonHubMix = smoothstep(B1, B1 + d2 * 0.25, p);
+const diskMix = smoothstep(B2, B2 + d3 * 0.25, p);
+const aerostimMix = smoothstep(B3, B3 + d4 * 0.25, p);
+const voltMix = smoothstep(B4, B4 + d5 * 0.25, p);
+const sippuffMix = smoothstep(B5, B5 + d6 * 0.25, p);
+const vexMix = smoothstep(B6, B6 + d7 * 0.25, p);
 
-  // Text transitions
-  const jetsonText = 1 - smoothstep(B1, B1 + d2 * 0.25, p);
+// Text transitions
+const jetsonText =
+  1 - smoothstep(B1, B1 + d2 * 0.25, p);
 
-  const diskText =
-    smoothstep(B1, B1 + d2 * 0.25, p) *
-    (1 - smoothstep(B2, B2 + d3 * 0.25, p));
+const jetsonHubText =
+  smoothstep(B1, B1 + d2 * 0.25, p) *
+  (1 - smoothstep(B2, B2 + d3 * 0.25, p));
 
-  const aerocardiaText =
-    smoothstep(B2, B2 + d3 * 0.25, p) *
-    (1 - smoothstep(B3, B3 + d4 * 0.25, p));
+const diskText =
+  smoothstep(B2, B2 + d3 * 0.25, p) *
+  (1 - smoothstep(B3, B3 + d4 * 0.25, p));
 
-  const voltText =
-    smoothstep(B3, B3 + d4 * 0.25, p) *
-    (1 - smoothstep(B4, B4 + d5 * 0.25, p));
+const aerocardiaText =
+  smoothstep(B3, B3 + d4 * 0.25, p) *
+  (1 - smoothstep(B4, B4 + d5 * 0.25, p));
 
-  const sippuffText =
-    smoothstep(B4, B4 + d5 * 0.25, p) *
-    (1 - smoothstep(B5, B5 + d6 * 0.25, p));
+const voltText =
+  smoothstep(B4, B4 + d5 * 0.25, p) *
+  (1 - smoothstep(B5, B5 + d6 * 0.25, p));
 
-  const vexText = smoothstep(B5, B5 + d6 * 0.25, p);
+const sippuffText =
+  smoothstep(B5, B5 + d6 * 0.25, p) *
+  (1 - smoothstep(B6, B6 + d7 * 0.25, p));
+
+const vexText =
+  smoothstep(B6, B6 + d7 * 0.25, p);
 
 
   return (
@@ -162,7 +173,7 @@ export default function ScrollStory() {
             {voltText > 0.02 ? (
               <div style={{ opacity: voltText }}>
                 <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 10 }}>
-                  Volt Carbon Technologies: Graphite Extraction and Lithium Ion
+                  Solid Ultra Battery: Graphite Extraction and Lithium Ion
                   Battery Design
                 </div>
                 <ul
@@ -543,26 +554,31 @@ export default function ScrollStory() {
               }}
             >
               <StoryCadStage
-                jetsonSrc="/models/A908 - Rivian Topper - Manual Tonneau - Tall Proto-compressed.glb"
-                turretSrc="/models/turret30kgservos.glb"
-                aerostimSrc="/models/aerostim.glb"
-                voltSrc="/models/funnel.glb"
-                sippuffSrc="/models/sipandpuff.glb"
-                vexSrc="/models/Full_Robot_v3.glb"
-                height={480}
-                orbitDeg={orbitDeg}
-                diskMix={diskMix}
-                aerostimMix={aerostimMix}
-                voltMix={voltMix}
-                sippuffMix={sippuffMix}
-                vexMix={vexMix}
-                jetsonRotationDeg={[290, 0, 0]}
-                turretRotationDeg={[90, 0, 0]}
-                aerostimRotationDeg={[0, 0, 0]}
-                voltRotationDeg={[10, 0, 0]}
-                sippuffRotationDeg={[-20, 0, 0]}
-                vexRotationDeg={[0, 0, 0]}
-              />
+  jetsonSrc="/models/A908 - Rivian Topper - Manual Tonneau - Tall Proto-compressed.glb"
+  jetsonHubSrc="/models/JetsonHub.glb"
+  turretSrc="/models/turret30kgservos.glb"
+  aerostimSrc="/models/aerostim.glb"
+  voltSrc="/models/funnel.glb"
+  sippuffSrc="/models/sipandpuff.glb"
+  vexSrc="/models/Full_Robot_v3.glb"
+  height={480}
+  orbitDeg={orbitDeg}
+
+  jetsonHubMix={jetsonHubMix}
+  diskMix={diskMix}
+  aerostimMix={aerostimMix}
+  voltMix={voltMix}
+  sippuffMix={sippuffMix}
+  vexMix={vexMix}
+
+  jetsonRotationDeg={[290, 0, 0]}
+  jetsonHubRotationDeg={[90, 70, 0]}
+  turretRotationDeg={[90, 0, 0]}
+  aerostimRotationDeg={[0, 0, 0]}
+  voltRotationDeg={[10, 0, 0]}
+  sippuffRotationDeg={[-20, 0, 0]}
+  vexRotationDeg={[0, 0, 0]}
+/>
             </div>
           ) : (
             <div style={{ height: 480 }} />
@@ -570,7 +586,33 @@ export default function ScrollStory() {
 
           {/* RIGHT CALLOUTS */}
           <div style={{ transition: "opacity 200ms linear" }}>
-            {vexText > 0.02 ? (
+          {jetsonHubText > 0.02 ? (
+    <div style={{ opacity: jetsonHubText }}>
+      <div
+        style={{
+          fontSize: 18,
+          fontWeight: 600,
+          marginBottom: 10,
+        }}
+      >
+        Jetson: M1/M2 Wireless Bridge
+      </div>
+
+      <ul
+        style={{
+          margin: 0,
+          paddingLeft: 18,
+          lineHeight: 1.7,
+          opacity: 0.75,
+        }}
+      >
+        <li>
+          Developed a wireless communication bridge to replace the wired
+          connection between Jetson HVAC indoor and outdoor units.
+        </li>
+      </ul>
+    </div>
+  ) : vexText > 0.02 ? (
     <div style={{ opacity: vexText }}>
       <div style={{ fontSize: 18, fontWeight: 600, marginBottom: 10 }}>
         VEX Robotics — Design Team Captain
